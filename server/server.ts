@@ -1,9 +1,12 @@
 import express, { Request, Response } from 'express';
 import axios from 'axios';
+import cors from 'cors';
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+
+app.use(cors());
+const PORT = process.env.PORT || 5000;
 
 const apiKeyMiddleware = (req: Request, res: Response, next: Function) => {
   // TODO: Check authorization, input validation, etc.
