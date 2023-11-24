@@ -25,11 +25,11 @@ const App: React.FC = () => {
         setError(null);
       } else {
         setWeatherData(null);
-        setError({ message: data.error.message });
+        setError({ message: data.error });
       }
-    } catch (error) {
+    } catch (error: any) {
       setWeatherData(null);
-      setError({ message: 'Error fetching weather data' });
+      setError({ message: error });
     }
   };
 
