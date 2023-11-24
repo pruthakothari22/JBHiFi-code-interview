@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import WeatherForm from './Components/WeatherForm';
+import WeatherInfo from './Components/WeatherInfo';
 
-function App() {
+const App: React.FC = () => {
+  const [weatherData, setWeatherData] = useState<{
+    description: string;
+  } | null>(null);
+  const [error, setError] = useState<{ message: string } | null>(null);
+
+  const fetchWeatherData = async ({
+    city,
+    country,
+  }: {
+    city: string;
+    country: string;
+  }) => {
+    const serverUrl = process.env.REACT_APP_SERVER_URL;
+    try {
+      const response = await fetch(`${serverUrl}/weather?q=${city},${country}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setWeatherData(data);
+        setError(null);
+      } else {
+        setWeatherData(null);
+        setError({ message: data.error.message });
+      }
+    } catch (error) {
+      setWeatherData(null);
+      setError({ message: 'Error fetching weather data' });
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Weather App</h1>
+      <WeatherForm onSubmit={fetchWeatherData} />
+      <WeatherInfo weatherData={weatherData} error={error} />
     </div>
   );
-}
+};
 
 export default App;
