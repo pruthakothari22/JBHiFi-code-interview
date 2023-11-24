@@ -18,8 +18,14 @@ const FormGroup = styled.label`
   margin-bottom: 20px;
 `;
 
-const Input = styled.input`
+const Input = styled.input<{ hasError?: boolean }>`
   padding: 8px;
+  margin-top: 5px;
+  border: 1px solid ${(props) => (props.hasError ? '#e74c3c' : '#ccc')};
+`;
+
+const ErrorText = styled.span`
+  color: #e74c3c;
   margin-top: 5px;
 `;
 
@@ -40,29 +46,69 @@ const SubmitButton = styled.button`
 const WeatherForm: React.FC<WeatherFormProps> = ({ onSubmit }) => {
   const [city, setCity] = useState('');
   const [country, setCountry] = useState('');
+  const [inputError, setInputError] = useState({
+    city: '',
+    country: '',
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    setInputError((prev) => ({ ...prev, [name]: '' }));
+
+    if (name === 'city') {
+      setCity(value);
+    } else if (name === 'country') {
+      setCountry(value);
+    }
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate inputs before submitting
+    if (!city) {
+      setInputError((prev) => ({ ...prev, city: 'Please enter a city.' }));
+      return;
+    }
+
+    if (!country) {
+      setInputError((prev) => ({
+        ...prev,
+        country: 'Please enter a country.',
+      }));
+      return;
+    }
+
+    // Reset input errors
+    setInputError({ city: '', country: '' });
+
     onSubmit({ city, country });
   };
 
   return (
     <FormContainer onSubmit={handleSubmit}>
       <FormGroup>
-        <span>City</span>
+        <span>City:</span>
         <Input
           type='text'
+          name='city'
           value={city}
-          onChange={(e) => setCity(e.target.value)}
+          onChange={handleChange}
+          hasError={!!inputError.city}
         />
+        {inputError.city && <ErrorText>{inputError.city}</ErrorText>}
       </FormGroup>
       <FormGroup>
-        <span>Country</span>
+        <span>Country:</span>
         <Input
           type='text'
+          name='country'
           value={country}
-          onChange={(e) => setCountry(e.target.value)}
+          onChange={handleChange}
+          hasError={!!inputError.country}
         />
+        {inputError.country && <ErrorText>{inputError.country}</ErrorText>}
       </FormGroup>
       <SubmitButton type='submit'>Get Weather</SubmitButton>
     </FormContainer>
