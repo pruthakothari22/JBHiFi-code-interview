@@ -20,7 +20,7 @@ const App: React.FC = () => {
     description: string;
   } | null>(null);
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<{ message: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const fetchWeatherData = async ({
     city,
@@ -40,11 +40,11 @@ const App: React.FC = () => {
         setError(null);
       } else {
         setWeatherData(null);
-        setError({ message: data.error });
+        setError(data.error);
       }
-    } catch (error: any) {
+    } catch (error) {
       setWeatherData(null);
-      setError({ message: error });
+      setError('Error fetching weather data');
     } finally {
       setLoading(false);
     }

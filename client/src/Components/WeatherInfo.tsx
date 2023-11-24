@@ -17,12 +17,12 @@ const ErrorContainer = styled.div`
 
 interface WeatherInfoProps {
   weatherData: { description: string } | null;
-  error: { message: string } | null;
+  error: string | null;
 }
 
 const WeatherInfo: React.FC<WeatherInfoProps> = ({ weatherData, error }) => {
   if (error) {
-    return <ErrorContainer>Error: {error.message}</ErrorContainer>;
+    return <ErrorContainer>{error}</ErrorContainer>;
   }
 
   if (!weatherData) {
