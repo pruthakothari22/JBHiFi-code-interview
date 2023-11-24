@@ -11,12 +11,6 @@ const PORT = process.env.PORT || 5000;
 const apiKeyMiddleware = (req: Request, res: Response, next: Function) => {
   // TODO: Check authorization, input validation, etc.
 
-  const apiKey = req.query.apiKey as string | undefined;
-
-  if (!apiKey || apiKey !== process.env.OPENWEATHERMAP_API_KEY) {
-    return res.status(401).json({ error: 'Invalid API key' });
-  }
-
   next();
 };
 
