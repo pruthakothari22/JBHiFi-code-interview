@@ -35,10 +35,8 @@ app.get('/weather', async (req: Request, res: Response) => {
     const description = response.data.weather[0].description;
     res.json({ description });
   } catch (error) {
-    res.status(500).json({ error: { error: 'Error fetching weather data' } });
+    res.status(500).json({ error: 'Error fetching weather data' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+app.listen(PORT);
