@@ -24,10 +24,10 @@ const FormLabel = styled.label`
   color: #2980b9;
 `;
 
-const Input = styled.input<{ hasError?: boolean }>`
+const Input = styled.input`
   padding: 12px;
   margin-top: 5px;
-  border: 1px solid ${(props) => (props.hasError ? '#e74c3c' : '#ccc')};
+  border: 1px solid '#ccc';
 `;
 
 const ErrorText = styled.span`
@@ -97,13 +97,7 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ onSubmit }) => {
     <FormContainer onSubmit={handleSubmit}>
       <FormGroup>
         <FormLabel>City</FormLabel>
-        <Input
-          type='text'
-          name='city'
-          value={city}
-          onChange={handleChange}
-          hasError={!!inputError.city}
-        />
+        <Input type='text' name='city' value={city} onChange={handleChange} />
         {inputError.city && <ErrorText>{inputError.city}</ErrorText>}
       </FormGroup>
       <FormGroup>
@@ -113,7 +107,6 @@ const WeatherForm: React.FC<WeatherFormProps> = ({ onSubmit }) => {
           name='country'
           value={country}
           onChange={handleChange}
-          hasError={!!inputError.country}
         />
         {inputError.country && <ErrorText>{inputError.country}</ErrorText>}
       </FormGroup>
