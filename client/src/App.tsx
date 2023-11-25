@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import WeatherForm from './Components/WeatherForm';
 import WeatherInfo from './Components/WeatherInfo';
-import LoadingSpinner from './Components/LoadingSpinner';
+import LoadingSkeleton from './Components/LoadingSkeleton';
 
 const AppContainer = styled.div`
   max-width: 600px;
@@ -55,7 +55,7 @@ const App: React.FC = () => {
       <AppTitle>Weather App</AppTitle>
       <WeatherForm onSubmit={fetchWeatherData} />
       {loading ? (
-        <LoadingSpinner />
+        <LoadingSkeleton />
       ) : (
         <WeatherInfo weatherData={weatherData} error={error} />
       )}

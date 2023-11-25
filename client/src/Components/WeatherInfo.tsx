@@ -11,7 +11,7 @@ const WeatherInfoContainer = styled.div`
 
 const ErrorContainer = styled.div`
   margin-top: 20px;
-  color: #e74c3c; /* Red color for errors */
+  color: #e74c3c;
   text-align: center;
 `;
 
