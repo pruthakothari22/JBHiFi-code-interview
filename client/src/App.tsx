@@ -12,7 +12,7 @@ const AppContainer = styled.div`
 `;
 
 const AppTitle = styled.h1`
-  color: #3498db;
+  color: #2980b9;
 `;
 
 const App: React.FC = () => {

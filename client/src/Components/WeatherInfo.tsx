@@ -3,16 +3,22 @@ import styled from 'styled-components';
 
 const WeatherInfoContainer = styled.div`
   margin-top: 20px;
-  background-color: #ecf0f1;
   padding: 15px;
-  border-radius: 5px;
+  border-radius: 15px;
   text-align: center;
+  align-items: center;
+  border: 2px solid #2980b9;
 `;
 
 const ErrorContainer = styled.div`
   margin-top: 20px;
   color: #e74c3c;
   text-align: center;
+`;
+
+const WeatherInformation = styled.h2`
+  color: #2980b9;
+  margin: 50px;
 `;
 
 interface WeatherInfoProps {
@@ -31,8 +37,9 @@ const WeatherInfo: React.FC<WeatherInfoProps> = ({ weatherData, error }) => {
 
   return (
     <WeatherInfoContainer>
-      <h2>Weather Information</h2>
-      <p>Description: {weatherData.description}</p>
+      <WeatherInformation>
+        {weatherData.description.toUpperCase()}
+      </WeatherInformation>
     </WeatherInfoContainer>
   );
 };
