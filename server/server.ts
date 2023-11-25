@@ -32,7 +32,8 @@ app.get('/weather', async (req: Request, res: Response) => {
       `https://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${apiKey}`
     );
 
-    const description = response.data.weather[0].description;
+    const description =
+      response.data.weather[0].description ?? 'No description found';
     res.json({ description });
   } catch (error) {
     res.status(500).json({ error: 'Error fetching weather data' });
